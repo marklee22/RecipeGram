@@ -4,7 +4,21 @@
 
 <body>
   {{> hello}}
+  {{> recipes}}
+  {{> food_photos}}
 </body>
+
+<template name="recipes">
+  {{#each recipes}}
+  <img src="{{bigImageUrl}}"/>
+  {{/each}}
+</template>
+
+<template name="food_photos">
+  {{#each photos}}
+  <img src="{{images.low_resolution.url}}"/>
+  {{/each}}
+</template>
 
 <template name="hello">
   <h1>Hello World!</h1>
@@ -13,4 +27,5 @@
 
   <button id="getRecipes">Get Recipes</button>
   <button id="getInstagramPhotos">Get Instagram Photos</button>
+  <button id="getYummlyRecipes">Get Yummly Recipes</button>
 </template>
