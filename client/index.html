@@ -1,11 +1,9 @@
 <head>
-  <title>RecipeGram</title>
+<title>RecipeGram</title>
 </head>
 
 <body>
-  {{> hello}}
-  {{> recipes}}
-  {{> food_photos}}
+  {{renderPage}}
 </body>
 
 <template name="recipes">
@@ -20,12 +18,45 @@
   {{/each}}
 </template>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
-
-  <button id="getRecipes">Get Recipes</button>
-  <button id="getInstagramPhotos">Get Instagram Photos</button>
-  <button id="getYummlyRecipes">Get Yummly Recipes</button>
+<template name="meals">
+	<div class="text-center" class="row-fluid">
+		<div class ="span4 offset4">
+			<input type="button" class="btn" id="breakfast" value="Breakfast" />
+		</div>
+		<div class="span4 offset4">
+			<input type="button" class="btn" id="lunch" value="Lunch" />
+		</div>
+		<div class="span4 offset4">
+			<input type="button" class="btn" id="dinner" value="Dinner" />
+		</div>
+    <div class="span4 offset4">
+      <h4>Server Query Tests</h4>
+      <button id="getRecipes">Get Recipes</button>
+      <button id="getInstagramPhotos">Get Instagram Photos</button>
+      <button id="getYummlyRecipes">Get Yummly Recipes</button>
+    </div>
+	</div>
 </template>
+
+<template name="breakfast">
+	<h1>Breakfast</h1>
+</template>
+<template name="lunch">
+	<h1>Lunch</h1>
+</template>
+<template name="dinner">
+	<h1>Lunch</h1>
+</template>
+
+<!-- <template name="ingredients">
+  <div id="ingredients">
+    {{#each ingredients}}
+      {{> ingredient}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="message">
+  <p>{{ingredient}}</p>
+</template>
+ -->

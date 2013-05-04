@@ -1,6 +1,14 @@
-Template.hello.greeting = function () {
-  return "Welcome to RecipeGram.";
-};
+Ingredients = new Meteor.Collection('ingredients');
+
+Meteor.Router.add({
+  '/': 'meals',
+
+  '/breakfast': 'breakfast',
+
+  '/lunch': 'lunch',
+
+  '/dinner': 'dinner'
+});
 
 Template.food_photos.photos = function() {
   return Session.get('photos').images;
@@ -10,7 +18,17 @@ Template.recipes.recipes = function() {
   return Session.get('recipes').data.matches;
 };
 
-Template.hello.events({
+Template.meals.events({
+  'click input#breakfast' : function () {
+    Meteor.Router.to('/breakfast');
+  },
+  'click input#lunch' : function () {
+    Meteor.Router.to('/lunch');
+  },
+  'click input#dinner' : function () {
+    Meteor.Router.to('/dinner');
+  },
+
   'click input' : function () {
     // template data, if any, is available in 'this'
     if (typeof console !== 'undefined')
@@ -41,3 +59,10 @@ Template.hello.events({
     });
   }
 });
+// Template.ingredients.ingredients = function(){
+//     return Ingredients.find({}, { sort: {time: 1} });
+// };
+
+
+
+
