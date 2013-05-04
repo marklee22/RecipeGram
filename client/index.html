@@ -3,19 +3,44 @@
 </head>
 
 <body>
-	{{> meals}}
+	{{> router}}
 </body>
+<template name="router">
+	{{#if breakfast}}
+		{{> breakfast}} 
+	{{else}}
+		{{> meals}}
+	{{/if}}
+
+</template>
 
 <template name="meals">
 	<div class="text-center" class="row-fluid">
-	<div class ="span4 offset2">
-		<input type="button" class="btn" id="breakfast" value="Breakfast" />
-	</div>
-<div class="span4 offset2">
-	<input type="button" class="btn" id="lunch" value="Lunch" />
-	</div>
-<div class="span4 offset2">
-	<input type="button" class="btn" id="dinner" value="Dinner" />
-</div>
-</div>
+		<div class ="span4 offset2">
+			<input type="button" class="btn" id="breakfast" value="Breakfast" />
+		</div>
+		<div class="span4 offset2">
+			<input type="button" class="btn" id="lunch" value="Lunch" />
+		</div>
+		<div class="span4 offset2">
+			<input type="button" class="btn" id="dinner" value="Dinner" />
+		</div>
+		</div>
 </template>
+
+<template name="breakfast">
+	<h1>Breakfast</h1>		
+</template>
+
+<!-- <template name="ingredients">
+  <div id="ingredients">
+    {{#each ingredients}}
+      {{> ingredient}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="message">
+  <p>{{ingredient}}</p> 
+</template>
+ -->
