@@ -6,6 +6,18 @@
   {{renderPage}}
 </body>
 
+<template name="recipes">
+  {{#each recipes}}
+  <img src="{{bigImageUrl}}"/>
+  {{/each}}
+</template>
+
+<template name="food_photos">
+  {{#each photos}}
+  <img src="{{images.low_resolution.url}}"/>
+  {{/each}}
+</template>
+
 <template name="meals">
 	<div class="text-center" class="row-fluid">
 		<div class ="span4 offset4">
@@ -17,17 +29,23 @@
 		<div class="span4 offset4">
 			<input type="button" class="btn" id="dinner" value="Dinner" />
 		</div>
-		</div>
+    <div class="span4 offset4">
+      <h4>Server Query Tests</h4>
+      <button id="getRecipes">Get Recipes</button>
+      <button id="getInstagramPhotos">Get Instagram Photos</button>
+      <button id="getYummlyRecipes">Get Yummly Recipes</button>
+    </div>
+	</div>
 </template>
 
 <template name="breakfast">
-	<h1>Breakfast</h1>		
+	<h1>Breakfast</h1>
 </template>
 <template name="lunch">
-	<h1>Lunch</h1>		
+	<h1>Lunch</h1>
 </template>
 <template name="dinner">
-	<h1>Lunch</h1>		
+	<h1>Lunch</h1>
 </template>
 
 <!-- <template name="ingredients">
@@ -39,6 +57,6 @@
 </template>
 
 <template name="message">
-  <p>{{ingredient}}</p> 
+  <p>{{ingredient}}</p>
 </template>
  -->
