@@ -1,6 +1,3 @@
-// Template.hello.greeting = function () {
-//   return "Welcome to RecipeGram.";
-// };
 Ingredients = new Meteor.Collection('ingredients');
 Meteor.Router.add({
   '/': 'meals',
@@ -23,9 +20,9 @@ Template.meals.events({
     Meteor.Router.to('/dinner');
   }
 });
-// Template.ingredients.ingredients = function(){
-//     return Ingredients.find({}, { sort: {time: 1} });
-// };
+Template.ingredients.ingredients = function(){
+    return Ingredients.find({}, { sort: {time: 1} });
+};
 
 
 
