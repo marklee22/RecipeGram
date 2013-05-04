@@ -3,26 +3,18 @@
 </head>
 
 <body>
-	{{> router}}
+  {{renderPage}}
 </body>
-<template name="router">
-	{{#if breakfast}}
-		{{> breakfast}} 
-	{{else}}
-		{{> meals}}
-	{{/if}}
-
-</template>
 
 <template name="meals">
 	<div class="text-center" class="row-fluid">
-		<div class ="span4 offset2">
+		<div class ="span4 offset4">
 			<input type="button" class="btn" id="breakfast" value="Breakfast" />
 		</div>
-		<div class="span4 offset2">
+		<div class="span4 offset4">
 			<input type="button" class="btn" id="lunch" value="Lunch" />
 		</div>
-		<div class="span4 offset2">
+		<div class="span4 offset4">
 			<input type="button" class="btn" id="dinner" value="Dinner" />
 		</div>
 		</div>
@@ -30,6 +22,12 @@
 
 <template name="breakfast">
 	<h1>Breakfast</h1>		
+</template>
+<template name="lunch">
+	<h1>Lunch</h1>		
+</template>
+<template name="dinner">
+	<h1>Lunch</h1>		
 </template>
 
 <!-- <template name="ingredients">

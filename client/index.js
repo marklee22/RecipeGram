@@ -2,34 +2,31 @@
 //   return "Welcome to RecipeGram.";
 // };
 Ingredients = new Meteor.Collection('ingredients');
+Meteor.Router.add({
+  '/': 'meals',
+
+  '/breakfast': 'breakfast',
+
+  '/lunch': 'lunch',
+
+  '/dinner': 'dinner'
+});
 
 Template.meals.events({
   'click input#breakfast' : function () {
-  	Session.set('show_breakfast',true);
-    // template data, if any, is available in 'this'
-    if (typeof console !== 'undefined')
-      console.log("You pressed the breakfast button");
+    Meteor.Router.to('/breakfast');    
   },
   'click input#lunch' : function () {
-    // template data, if any, is available in 'this'
-    if (typeof console !== 'undefined')
-      console.log("You pressed the lunch button");
+    Meteor.Router.to('/lunch');
   },
   'click input#dinner' : function () {
-    // template data, if any, is available in 'this'
-    if (typeof console !== 'undefined')
-      console.log("You pressed the dinner button");
+    Meteor.Router.to('/dinner');
   }
 });
 // Template.ingredients.ingredients = function(){
 //     return Ingredients.find({}, { sort: {time: 1} });
 // };
 
-Session.set('show_breakfast', false);
-
-Template.router.breakfast = function () { 
-	return Session.equals('show_breakfast',true);
-};
 
 
 
