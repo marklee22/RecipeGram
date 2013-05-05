@@ -1,3 +1,16 @@
+Deps.autorun(function() {
+  var currentRecipe = Session.get('recipe');
+  if(currentRecipe) {
+    console.log('get Instagram Photos for: ' + currentRecipe.name);
+    // console.log(currentRecipe.name);
+    // console.log(currentRecipe.name.replace(/ /g, ''));
+    // Meteor.call('getInstagramFoodPics', currentRecipe.name, function(err, results) {
+    //   console.log(results);
+    //   Session.set('userPhotos', results);
+    // });
+  }
+});
+
 
 // Server side queries
 var getRecipe = function(category) {
@@ -29,11 +42,21 @@ Template.photos_page.photos = function() {
 *************/
 
 Template.recipe_page.title = function() {
-  return Session.get('category').toUpperCase();
+  if(Session.get('category'))
+    return Session.get('category').toUpperCase();
+  else
+    return 'No Category';
 };
 
 Template.recipe_page.recipe = function() {
   return Session.get('recipe');
+};
+
+Template.recipe_info.printIngredients = function(ingredients) {
+  console.log(ingredients);
+  return _.map(ingredients, function(ingredient, index) {
+    return {value: ingredient};
+  });
 };
 
 /*************
@@ -49,13 +72,5 @@ Template.splash_page.events({
       Session.set('category', category);
       Meteor.Router.to('/recipe');
     }
-  },
-
-  'click #getInstagramPhotos': function() {
-    console.log('get Instagram Photos');
-    Meteor.call('getInstagramFoodPics', 'chickenTeriyaki', function(err, results) {
-      console.log(results);
-      Session.set('photos', results);
-    });
   }
 });

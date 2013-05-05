@@ -44,6 +44,19 @@ var getAndStoreRecipe = function(category, recipeId) {
   return response.data;
 };
 
+// Sanitize recipe name for Instagram tag name
+var sanitizeTagName = function(tagName) {
+  var index;
+  if((index = tagName.indexOf('&')) !== -1)
+    tagName = tagName.substr(0, index);
+  if((index = tagName.indexOf('(')) !== -1)
+    tagName = tagName.substr(0, index);
+
+  tagName = tagName.replace(/ /g, '');
+  console.log('sanitized tagName: ' + tagName);
+  return tagName;
+};
+
 Meteor.methods({
   'getYummlyRecipe': function(category) {
     console.log('Running Yummly API query');
@@ -81,6 +94,7 @@ Meteor.methods({
 
   'getInstagramFoodPics': function(tagName) {
     console.log('Running Instagram query');
+    tagName = sanitizeTagName(tagName);
     var url = instagramUrl + tagName + '/media/recent';
     var params = {
       'client_id': instagramClientID

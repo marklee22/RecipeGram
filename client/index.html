@@ -19,11 +19,6 @@
     <div class="span4 offset4">
       <input type="button" class="btn btn-large btn-success" id="dinner" value="Dinner" />
     </div>
-    <div class="span4 offset4">
-      <h4>Server Query Tests</h4>
-      <button id="getInstagramPhotos">Get Instagram Photos</button>
-      <button id="getYummlyRecipes">Get Yummly Recipes</button>
-    </div>
   </div>
 </template>
 
@@ -31,13 +26,21 @@
   <h1 class="text-center">{{title}}</h1>
   {{#if recipe}}
     {{> recipe_info recipe}}
+    {{> photos_page}}
   {{/if}}
 </template>
 
 <template name="recipe_info">
   <div class="recipe text-center">
-    <img src="{{bigImageUrl}}"/>
+    {{#each images}}
+    <img src="{{hostedLargeUrl}}"/>
+    {{/each}}
     <div class="text-center">{{name}}</div>
+    <ul>
+    {{#each printIngredients ingredientLines}}
+      <li>{{value}}</li>
+    {{/each}}
+    </ul>
   </div>
 </template>
 
