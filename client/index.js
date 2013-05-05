@@ -1,54 +1,54 @@
-Ingredients = new Meteor.Collection('ingredients');
+
+// Server side queries
+var getRecipe = function(category) {
+  Meteor.call('getYummlyRecipe', category, function(err, result) {
+    console.log(result);
+    Session.set('recipe', result);
+  });
+};
 
 Meteor.Router.add({
-  '/': 'meals',
-
-  '/breakfast': 'breakfast',
-
-  '/lunch': 'lunch',
-
-  '/dinner': 'dinner'
+  '/': 'splash_page',
+  '/recipe': 'recipe_page',
+  '/photos': 'photos_page'
 });
 
-Template.food_photos.photos = function() {
-  return Session.get('photos').images;
+/*************
+*** PHOTOS ***
+*************/
+
+Template.photos_page.photos = function() {
+  if(Session.get('photos'))
+    return Session.get('photos').images;
+  else
+    return;
 };
 
-Template.recipes.recipes = function() {
-  return Session.get('recipes').data.matches;
+/*************
+*** RECIPE ***
+*************/
+
+Template.recipe_page.title = function() {
+  return Session.get('category').toUpperCase();
 };
 
-Template.meals.events({
-  'click input#breakfast' : function () {
-    Meteor.Router.to('/breakfast');
-  },
-  'click input#lunch' : function () {
-    Meteor.Router.to('/lunch');
-  },
-  'click input#dinner' : function () {
-    Meteor.Router.to('/dinner');
-  },
+Template.recipe_page.recipe = function() {
+  return Session.get('recipe');
+};
 
-  'click input' : function () {
-    // template data, if any, is available in 'this'
-    if (typeof console !== 'undefined')
-      console.log("You pressed the button");
-  },
+/*************
+*** SPLASH ***
+*************/
 
-  'click #getRecipes': function() {
-    console.log('test complete!');
-    Meteor.call('getPearsonRecipes', 'breakfast', function(err, results) {
-      console.log(results);
-      Session.set('recipes', results);
-    });
-  },
-
-  'click #getYummlyRecipes': function() {
-    console.log('yummly');
-    Meteor.call('getYummlyRecipes', function(err, results) {
-      console.log(results);
-      Session.set('recipes', results);
-    });
+Template.splash_page.events({
+  'click input.btn': function(e) {
+    var category = e.target.id;
+    console.log('Category picked: ' + category);
+    if(category) {
+      getRecipe(category);
+      Session.set('category', category);
+      Meteor.Router.to('/recipe');
+    }
   },
 
   'click #getInstagramPhotos': function() {
@@ -59,10 +59,4 @@ Template.meals.events({
     });
   }
 });
-Template.ingredients.ingredients = function(){
-    return Ingredients.find({}, { sort: {time: 1} });
-};
-
-
-
 

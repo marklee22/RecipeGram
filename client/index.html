@@ -3,60 +3,47 @@
 </head>
 
 <body>
+  <div class="container-fluid">
   {{renderPage}}
+  </div>
 </body>
 
-<template name="recipes">
-  {{#each recipes}}
-  <img src="{{bigImageUrl}}"/>
-  {{/each}}
+<template name="splash_page">
+  <div class="row-fluid text-center">
+    <div class="span4 offset4">
+      <input type="button" class="btn btn-large btn-primary" id="breakfast" value="Breakfast" />
+    </div>
+    <div class="span4 offset4">
+      <input type="button" class="btn btn-large btn-info" id="lunch" value="Lunch" />
+    </div>
+    <div class="span4 offset4">
+      <input type="button" class="btn btn-large btn-success" id="dinner" value="Dinner" />
+    </div>
+    <div class="span4 offset4">
+      <h4>Server Query Tests</h4>
+      <button id="getInstagramPhotos">Get Instagram Photos</button>
+      <button id="getYummlyRecipes">Get Yummly Recipes</button>
+    </div>
+  </div>
 </template>
 
-<template name="food_photos">
+<template name="recipe_page">
+  <h1 class="text-center">{{title}}</h1>
+  {{#if recipe}}
+    {{> recipe_info recipe}}
+  {{/if}}
+</template>
+
+<template name="recipe_info">
+  <div class="recipe text-center">
+    <img src="{{bigImageUrl}}"/>
+    <div class="text-center">{{name}}</div>
+  </div>
+</template>
+
+<template name="photos_page">
+  <h1>Photos</h1>
   {{#each photos}}
   <img src="{{images.low_resolution.url}}"/>
   {{/each}}
 </template>
-
-<template name="meals">
-	<div class="text-center" class="row-fluid">
-		<div class ="span4 offset4">
-			<input type="button" class="btn" id="breakfast" value="Breakfast" />
-		</div>
-		<div class="span4 offset4">
-			<input type="button" class="btn" id="lunch" value="Lunch" />
-		</div>
-		<div class="span4 offset4">
-			<input type="button" class="btn" id="dinner" value="Dinner" />
-		</div>
-    <div class="span4 offset4">
-      <h4>Server Query Tests</h4>
-      <button id="getRecipes">Get Recipes</button>
-      <button id="getInstagramPhotos">Get Instagram Photos</button>
-      <button id="getYummlyRecipes">Get Yummly Recipes</button>
-    </div>
-	</div>
-</template>
-
-<template name="breakfast">
-	<h1>Breakfast</h1>
-</template>
-<template name="lunch">
-	<h1>Lunch</h1>
-</template>
-<template name="dinner">
-	<h1>Lunch</h1>
-</template>
-
-<!-- <template name="ingredients">
-  <div id="ingredients">
-    {{#each ingredients}}
-      {{> ingredient}}
-    {{/each}}
-  </div>
-</template>
-
-<template name="message">
-  <p>{{ingredient}}</p>
-</template>
- -->
