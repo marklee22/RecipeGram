@@ -1,16 +1,15 @@
 Deps.autorun(function() {
   var currentRecipe = Session.get('recipe');
-  if(currentRecipe) {
+  console.log(Meteor.Router.page());
+  if(currentRecipe && Meteor.Router.page() === 'recipe_page') {
     console.log('get Instagram Photos for: ' + currentRecipe.name);
-    // console.log(currentRecipe.name);
-    // console.log(currentRecipe.name.replace(/ /g, ''));
-    // Meteor.call('getInstagramFoodPics', currentRecipe.name, function(err, results) {
-    //   console.log(results);
-    //   Session.set('userPhotos', results);
-    // });
+    console.log(currentRecipe.name);
+    Meteor.call('getInstagramFoodPics', currentRecipe.name, function(err, results) {
+      console.log(results);
+      Session.set('photos', results);
+    });
   }
 });
-
 
 // Server side queries
 var getRecipe = function(category) {
@@ -26,15 +25,22 @@ Meteor.Router.add({
   '/photos': 'photos_page'
 });
 
+Meteor.Router.filters({
+  'clearSession': function(page) {
+    Session.set('photos', '');
+    Session.set('recipe', '');
+    return page;
+  }
+});
+
+Meteor.Router.filter('clearSession', {only: ['splash_page']});
+
 /*************
 *** PHOTOS ***
 *************/
 
 Template.photos_page.photos = function() {
-  if(Session.get('photos'))
-    return Session.get('photos').images;
-  else
-    return;
+  return Session.get('photos');
 };
 
 /*************
@@ -42,29 +48,17 @@ Template.photos_page.photos = function() {
 *************/
 
 Template.recipe_page.title = function() {
-<<<<<<< HEAD
-  if(Session.get('category'))
-    return Session.get('category').toUpperCase();
-  else
-    return 'No Category';
-=======
   if(Session.get('category')){
     return Session.get('category').toUpperCase();
   } else
     return "No Category";
->>>>>>> 772636c3261112eeb4bd18925d2ccaf434b9c703
 };
 
 Template.recipe_page.recipe = function() {
   return Session.get('recipe');
 };
 
-<<<<<<< HEAD
-Template.recipe_info.printIngredients = function(ingredients) {
-  console.log(ingredients);
-=======
 Template.recipe_info.printIngredients = function(ingredients){
->>>>>>> 772636c3261112eeb4bd18925d2ccaf434b9c703
   return _.map(ingredients, function(ingredient, index) {
     return {value: ingredient};
   });
@@ -85,4 +79,3 @@ Template.splash_page.events({
     }
   }
 });
-

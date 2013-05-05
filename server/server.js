@@ -1,3 +1,9 @@
+// Meteor.startup({
+//   Meteor.publish('recipeData', function() {
+
+//   });
+// });
+
 // Pearson API Settings
 var pearsonAPIKey = 'aac3c31fec0797148cb1a68b469282ce';
 var pearsonUrl = 'https://api.pearson.com/kitchen-manager/v1/';
@@ -13,14 +19,11 @@ var yummlyHeaders = {
 };
 
 // Instagram API Settings
-var instagramUrl = 'https://api.instagram.com/v1/tags/';
+var instagramUrl = 'https://api.instagram.com/v1/tags';
 var instagramClientID = '9da20f6b166e474a8b70cb396aa87da7';
 var instagramSecret = '587de29c36b4471d8df52e2fe61afc4e';
 
 // Yummly Max Results
-// breakfast - 9955
-// lunch - 17811
-// dinner - 43510
 var yummlyCategoryMax = {
   'breakfast': 6157,
   'lunch': 12362,
@@ -44,17 +47,31 @@ var getAndStoreRecipe = function(category, recipeId) {
   return response.data;
 };
 
-// Sanitize recipe name for Instagram tag name
-var sanitizeTagName = function(tagName) {
-  var index;
-  if((index = tagName.indexOf('&')) !== -1)
-    tagName = tagName.substr(0, index);
-  if((index = tagName.indexOf('(')) !== -1)
-    tagName = tagName.substr(0, index);
+// Get Instagram photo for word
+var getInstagramPhotoForWord = function(word) {
+  console.log('Getting Instagram photo for word: ' + word);
 
-  tagName = tagName.replace(/ /g, '');
-  console.log('sanitized tagName: ' + tagName);
-  return tagName;
+  // Sanitize word
+  word = word.replace(/['\-&]/g, '');
+  var url = instagramUrl + '/' + word + '/media/recent';
+  var params = {
+    'client_id': instagramClientID
+  };
+  var response = Meteor.http.get(url, {params: params});
+  // console.log(url);
+  // console.log(response);
+  var result = _.sortBy(response.data.data, function(instagram) {
+    // console.log(instagram.likes.count);
+    return -instagram.likes.count;
+  });
+
+  console.log(result[0].likes.count);
+  console.log(result[0].images.thumbnail.url);
+
+  if(result.length > 0)
+    return result[0].images.thumbnail.url;
+  else
+    return '/images/none.png';
 };
 
 Meteor.methods({
@@ -94,17 +111,12 @@ Meteor.methods({
 
   'getInstagramFoodPics': function(tagName) {
     console.log('Running Instagram query');
-    tagName = sanitizeTagName(tagName);
-    var url = instagramUrl + tagName + '/media/recent';
-    var params = {
-      'client_id': instagramClientID
-    };
-    var response = Meteor.http.get(url, {params: params});
-    console.log(response);
-    var results = {
-      images: response.data.data,
-      pagination: response.pagination
-    };
-    return results;
+    return _.map(tagName.split(' '), function(word) {
+      return {
+        term: word,
+        image: getInstagramPhotoForWord(word)
+      };
+    });
+    // getInstagramPhotoForWord('peanut');
   }
 });

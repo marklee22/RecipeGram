@@ -46,9 +46,12 @@
   </div>
 </template>
 
-
 <template name="photos_page">
   {{#each photos}}
-  <img src="{{images.low_resolution.url}}"/>
+  <div class="plus"></div>
+  <div class="instagram-term">{{term}}</div>
+  <div class="instagram-photo">
+    <img src="{{image}}"/>
+  </div>
   {{/each}}
 </template>
