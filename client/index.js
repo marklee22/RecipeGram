@@ -29,11 +29,20 @@ Template.photos_page.photos = function() {
 *************/
 
 Template.recipe_page.title = function() {
-  return Session.get('category').toUpperCase();
+  if(Session.get('category')){
+    return Session.get('category').toUpperCase();
+  } else
+    return "No Category";
 };
 
 Template.recipe_page.recipe = function() {
   return Session.get('recipe');
+};
+
+Template.recipe_info.printIngredients = function(ingredients){
+  return _.map(ingredients, function(ingredient, index) {
+    return {value: ingredient};
+  });
 };
 
 /*************

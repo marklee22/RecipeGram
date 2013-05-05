@@ -31,18 +31,28 @@
   <h1 class="text-center">{{title}}</h1>
   {{#if recipe}}
     {{> recipe_info recipe}}
+    {{> photos_page}}
   {{/if}}
 </template>
 
 <template name="recipe_info">
   <div class="recipe text-center">
-    <img src="{{bigImageUrl}}"/>
-    <div class="text-center">{{name}}</div>
+    {{#each images}}
+    <img src="{{hostedLargeUrl}}"/>
+    {{/each}}
+    <div class="text-center"><strong>{{name}}</strong></div>
+    <div class="text-left">
+    <ul>
+    {{#each printIngredients ingredientLines}}
+      <li>{{value}}</li>
+    {{/each}}
+    </ul>
+    </div>
   </div>
 </template>
 
+
 <template name="photos_page">
-  <h1>Photos</h1>
   {{#each photos}}
   <img src="{{images.low_resolution.url}}"/>
   {{/each}}
