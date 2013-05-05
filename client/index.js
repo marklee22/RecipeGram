@@ -4,10 +4,10 @@ Deps.autorun(function() {
   if(currentRecipe && Meteor.Router.page() === 'recipe_page') {
     console.log('get Instagram Photos for: ' + currentRecipe.name);
     console.log(currentRecipe.name);
-    Meteor.call('getInstagramFoodPics', currentRecipe.name, function(err, results) {
-      console.log(results);
-      Session.set('photos', results);
-    });
+    // Meteor.call('getInstagramFoodPics', currentRecipe.name, function(err, results) {
+    //   console.log(results);
+    //   Session.set('photos', results);
+    // });
   }
 });
 
@@ -47,12 +47,12 @@ Template.photos_page.photos = function() {
 *** RECIPE ***
 *************/
 
-Template.recipe_page.title = function() {
-  if(Session.get('category')){
-    return Session.get('category').toUpperCase();
-  } else
-    return "No Category";
-};
+// Template.recipe_page.title = function() {
+//   if(Session.get('category')){
+//     return Session.get('category').toUpperCase();
+//   } else
+//     return "No Category";
+// };
 
 Template.recipe_page.recipe = function() {
   return Session.get('recipe');

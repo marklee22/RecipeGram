@@ -9,21 +9,21 @@
 </body>
 
 <template name="splash_page">
-  <div class="row-fluid text-center">
+  <div class="row-fluid text-center splash">
+    <h1>I have no idea what to cook</h1>
     <div class="button span4 offset4">
-      <input type="button" class="btn btn-large btn-primary" id="breakfast" value="Breakfast" />
+      <input type="button" class="btn btn-danger btn-large category" id="breakfast" value="Breakfast" />
     </div>
     <div class="button span4 offset4">
-      <input type="button" class="btn btn-large btn-info" id="lunch" value="Lunch" />
+      <input type="button" class="btn btn-danger btn-large category" id="lunch" value="Lunch" />
     </div>
     <div class="button span4 offset4">
-      <input type="button" class="btn btn-large btn-success" id="dinner" value="Dinner" />
+      <input type="button" class="btn btn-danger btn-large category" id="dinner" value="Dinner" />
     </div>
   </div>
 </template>
 
 <template name="recipe_page">
-  <h3 class="text-center">{{title}}</h2>
   {{#if recipe}}
     {{> recipe_info recipe}}
     {{> photos_page}}
@@ -32,14 +32,14 @@
 
 <template name="recipe_info">
   <div class="recipe text-center">
+    <h1 class="text-center">Congrats! You're making this: <span class="title">{{name}}</span></h1>
     {{#each images}}
     <img src="{{hostedLargeUrl}}" width="50%" height="50%"/>
     {{/each}}
-    <div class="text-center"><strong>{{name}}</strong></div>
     <div class="text-left">
     <ul>
     {{#each printIngredients ingredientLines}}
-      <li>{{value}}</li>
+      <li class="ingredient">{{value}}</li>
     {{/each}}
     </ul>
     </div>
