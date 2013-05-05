@@ -42,18 +42,29 @@ Template.photos_page.photos = function() {
 *************/
 
 Template.recipe_page.title = function() {
+<<<<<<< HEAD
   if(Session.get('category'))
     return Session.get('category').toUpperCase();
   else
     return 'No Category';
+=======
+  if(Session.get('category')){
+    return Session.get('category').toUpperCase();
+  } else
+    return "No Category";
+>>>>>>> 772636c3261112eeb4bd18925d2ccaf434b9c703
 };
 
 Template.recipe_page.recipe = function() {
   return Session.get('recipe');
 };
 
+<<<<<<< HEAD
 Template.recipe_info.printIngredients = function(ingredients) {
   console.log(ingredients);
+=======
+Template.recipe_info.printIngredients = function(ingredients){
+>>>>>>> 772636c3261112eeb4bd18925d2ccaf434b9c703
   return _.map(ingredients, function(ingredient, index) {
     return {value: ingredient};
   });
@@ -74,3 +85,4 @@ Template.splash_page.events({
     }
   }
 });
+

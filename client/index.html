@@ -35,17 +35,19 @@
     {{#each images}}
     <img src="{{hostedLargeUrl}}"/>
     {{/each}}
-    <div class="text-center">{{name}}</div>
+    <div class="text-center"><strong>{{name}}</strong></div>
+    <div class="text-left">
     <ul>
     {{#each printIngredients ingredientLines}}
       <li>{{value}}</li>
     {{/each}}
     </ul>
+    </div>
   </div>
 </template>
 
+
 <template name="photos_page">
-  <h1>Photos</h1>
   {{#each photos}}
   <img src="{{images.low_resolution.url}}"/>
   {{/each}}
